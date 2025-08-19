@@ -1,12 +1,15 @@
-// Determine backend API base. When served via file:// or any dev port, use localhost:8000
+// Determine backend API base.
+// Prefer same-origin "/api" (works with Nginx reverse proxy in Docker),
+// fallback to http://localhost:8000 for local dev without proxy.
 const API = (() => {
   try {
-    const { protocol, hostname } = location;
-    if (!hostname) return "http://localhost:8000";
-    const safeProto = protocol.startsWith("http") ? protocol : "http:";
-    return `${safeProto}//${hostname}:8000`;
+    const { protocol, host } = location;
+    if (protocol.startsWith("http")) {
+      return `${protocol}//${host}/api`;
+    }
+    return "http://localhost:8000/api";
   } catch (_) {
-    return "http://localhost:8000";
+    return "http://localhost:8000/api";
   }
 })();
 

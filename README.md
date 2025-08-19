@@ -248,15 +248,28 @@ make docker-up
 
 Po starcie:
 
-* Backend: http://localhost:8000
-* Frontend (statyczny Nginx): http://localhost:5173
+* Frontend (Nginx) nasłuchuje na losowym porcie localhost. Aby sprawdzić port:
+
+```
+docker compose port frontend 80
+```
+
+Otwórz zwrócony adres (np. `http://127.0.0.1:32768`). API jest dostępne pod ścieżką `/api` (reverse proxy do serwisu `backend`).
 
 ### 6.3 Smoke test (API)
 
+Najpierw odczytaj port frontendu:
+
 ```
-curl -s http://localhost:8000/api/health | jq .
-curl -s http://localhost:8000/api/streams | jq .
-curl -s "http://localhost:8000/api/monitor/http?url=https://example.com" | jq .
+PORT=$(docker compose port frontend 80 | awk -F: '{print $2}')
+```
+
+Testy API przez proxy (zamiast bezpośredniego wystawiania backendu):
+
+```
+curl -s http://127.0.0.1:$PORT/api/health
+curl -s http://127.0.0.1:$PORT/api/streams
+curl -s "http://127.0.0.1:$PORT/api/monitor/http?url=https://example.com"
 ```
 
 ### 6.4 Logi i zatrzymanie
