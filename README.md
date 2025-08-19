@@ -172,13 +172,13 @@ make setup
 2. Uruchom backend (FastAPI na porcie 8000):
 
 ```
-make run-backend
+make backend
 ```
 
 3. W osobnej konsoli uruchom prosty serwer frontendu (port 5173):
 
 ```
-make run-frontend
+make frontend
 ```
 
 4. Otwórz w przeglądarce:
@@ -206,7 +206,7 @@ Frontend komunikuje się domyślnie z `http://localhost:8000`.
 /scripts
   sample.sh              # Przykładowy skrypt Bash
   sample.py              # Przykładowy skrypt Python
-Makefile                 # Cele: setup, run-backend, run-frontend
+Makefile                 # Cele: setup, backend, frontend
 exports/                 # (ignorowany w git) paczki ZIP z eksportu
 ```
 
@@ -230,3 +230,40 @@ Uwaga: akcje RTSP (start/stop) są placeholderami do dalszej implementacji (FFmp
 * Autodetekcja urządzeń (Nmap/Zeroconf/SSDP) i zapis do YAML.
 * Integracja Blockly/Scratch w froncie i mapowanie bloków na akcje API/skrypty.
 * Rozbudowa generatora WWW podglądów i statusów.
+
+---
+
+## **6. Uruchomienie w Docker / Docker Compose**
+
+### 6.1 Wymagania
+
+* Docker 20.10+ i Docker Compose v2 (polecenie `docker compose`)
+
+### 6.2 Budowanie i start
+
+```
+make docker-build
+make docker-up
+```
+
+Po starcie:
+
+* Backend: http://localhost:8000
+* Frontend (statyczny Nginx): http://localhost:5173
+
+### 6.3 Smoke test (API)
+
+```
+curl -s http://localhost:8000/api/health | jq .
+curl -s http://localhost:8000/api/streams | jq .
+curl -s "http://localhost:8000/api/monitor/http?url=https://example.com" | jq .
+```
+
+### 6.4 Logi i zatrzymanie
+
+```
+make docker-logs      # logi backendu
+make docker-down      # zatrzymanie i usunięcie kontenerów
+```
+
+Uwaga: katalog `exports/` jest montowany do kontenera backendu do zapisu paczek ZIP.

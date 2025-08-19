@@ -1,0 +1,15 @@
+# VCS
+.git
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+
+# Local artifacts
+exports/
+
+# Editors/OS
+.DS_Store
+.cursor*
