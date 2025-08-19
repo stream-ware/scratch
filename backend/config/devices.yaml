@@ -1,0 +1,6 @@
+- id: d-1724060000000
+  type: camera
+  ip: 192.168.1.10
+  meta:
+    vendor: Generic
+    model: Unknown

@@ -1,0 +1,9 @@
+- id: s-1724060000000
+  name: Example Camera
+  url: rtsp://user:pass@192.168.1.10:554/stream1
+  protocol: rtsp
+  enabled: true
+  username: user
+  password: pass
+  meta:
+    note: Sample pre-populated stream (root-level config)

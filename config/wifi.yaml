@@ -1,0 +1,4 @@
+- ssid: ExampleWiFi
+  rssi: -55
+  security: WPA2
+  connected: false

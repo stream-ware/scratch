@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>RTSP Smart IDE – Podgląd</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-slate-50 text-slate-900">
+    <div class="max-w-5xl mx-auto p-6">
+      <h1 class="text-2xl font-bold mb-4">RTSP Smart IDE – Dashboard</h1>
+
+      <section class="mb-6 p-4 bg-white rounded shadow">
+        <h2 class="font-semibold mb-2">Health</h2>
+        <button id="btn-health" class="px-3 py-1 bg-blue-600 text-white rounded">Sprawdź</button>
+        <pre id="health" class="mt-3 text-sm"></pre>
+      </section>
+
+      <section class="mb-6 p-4 bg-white rounded shadow">
+        <div class="flex items-center justify-between">
+          <h2 class="font-semibold">Strumienie</h2>
+          <button id="btn-streams" class="px-3 py-1 bg-blue-600 text-white rounded">Odśwież</button>
+        </div>
+        <ul id="streams" class="mt-3 list-disc pl-6 text-sm"></ul>
+      </section>
+
+      <section class="mb-6 p-4 bg-white rounded shadow">
+        <h2 class="font-semibold mb-2">Monitoring</h2>
+        <div class="flex gap-2 items-center">
+          <input id="ping-host" class="border rounded px-2 py-1" placeholder="8.8.8.8" />
+          <button id="btn-ping" class="px-3 py-1 bg-blue-600 text-white rounded">Ping</button>
+        </div>
+        <pre id="ping" class="mt-3 text-sm"></pre>
+      </section>
+
+      <section class="mb-6 p-4 bg-white rounded shadow">
+        <h2 class="font-semibold mb-2">Eksport</h2>
+        <button id="btn-export" class="px-3 py-1 bg-emerald-600 text-white rounded">Eksportuj projekt (ZIP)</button>
+        <pre id="export" class="mt-3 text-sm"></pre>
+      </section>
+
+      <footer class="text-xs text-slate-500">Frontend minimalistyczny. Docelowo: React + Tailwind + Blockly.</footer>
+    </div>
+    <script src="./scripts.js"></script>
+  </body>
+</html>

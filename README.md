@@ -149,3 +149,84 @@ RTSP Smart IDE to przeglądarkowe środowisko typu low-code/no-code, które umo�
 26. Integracja harmonogramów automatyzacji (cron/Celery).
 
 
+
+---
+
+## **5. Szybki start (Quickstart)**
+
+Poniżej minimalny szkielet projektu zgodny z założeniami. Backend (FastAPI) zapewnia CRUD na YAML, proste monitorowanie i eksport do ZIP. Frontend to lekka strona (Tailwind CDN + JS), która wywołuje API.
+
+### **5.1 Wymagania**
+
+* Python 3.10+
+* Dostęp do internetu (instalacja zależności)
+
+### **5.2 Instalacja i uruchomienie**
+
+1. Zainstaluj zależności i utwórz wirtualne środowisko:
+
+```
+make setup
+```
+
+2. Uruchom backend (FastAPI na porcie 8000):
+
+```
+make run-backend
+```
+
+3. W osobnej konsoli uruchom prosty serwer frontendu (port 5173):
+
+```
+make run-frontend
+```
+
+4. Otwórz w przeglądarce:
+
+```
+http://localhost:5173
+```
+
+Frontend komunikuje się domyślnie z `http://localhost:8000`.
+
+### **5.3 Struktura wygenerowana**
+
+```
+/backend
+  main.py                # FastAPI: API, monitoring, eksport ZIP
+  requirements.txt       # Zależności backendu
+/config
+  streams.yaml           # Konfiguracja strumieni
+  devices.yaml           # Wykryte/zarządzane urządzenia
+  wifi.yaml              # Sieci Wi‑Fi (przykłady)
+/frontend
+  index.html             # Minimalny dashboard
+  scripts.js             # Wywołania API (health, streams, ping, export)
+  styles.css             # (opcjonalny) CSS uzupełniający
+/scripts
+  sample.sh              # Przykładowy skrypt Bash
+  sample.py              # Przykładowy skrypt Python
+Makefile                 # Cele: setup, run-backend, run-frontend
+exports/                 # (ignorowany w git) paczki ZIP z eksportu
+```
+
+### **5.4 API (wybrane endpointy)**
+
+* `GET /api/health` – status usługi.
+* `GET /api/streams` – lista strumieni (z `streams.yaml`).
+* `POST /api/streams` – utworzenie strumienia.
+* `PUT /api/streams/{id}` – edycja strumienia.
+* `DELETE /api/streams/{id}` – usunięcie strumienia.
+* `GET /api/devices` – lista urządzeń (z `devices.yaml`).
+* `GET /api/monitor/ping?host=8.8.8.8` – prosty ping.
+* `GET /api/monitor/http?url=https://example.com` – sprawdzenie HTTP.
+* `POST /api/export` – eksport całego projektu do ZIP (do folderu `exports/`).
+
+Uwaga: akcje RTSP (start/stop) są placeholderami do dalszej implementacji (FFmpeg/GStreamer).
+
+### **5.5 Następne kroki**
+
+* Implementacja obsługi RTSP/RTSMP (FFmpeg/GStreamer) oraz reconnection.
+* Autodetekcja urządzeń (Nmap/Zeroconf/SSDP) i zapis do YAML.
+* Integracja Blockly/Scratch w froncie i mapowanie bloków na akcje API/skrypty.
+* Rozbudowa generatora WWW podglądów i statusów.
