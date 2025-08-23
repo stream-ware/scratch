@@ -1,6 +1,7 @@
+![diagram.png](diagram.png)
+
 # **RTSP Smart IDE – Dokumentacja Projektu**
 
-![diagram.png](diagram.png)
 
 ## **1. Cel projektu**
 
