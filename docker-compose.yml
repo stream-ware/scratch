@@ -2,6 +2,8 @@ services:
   backend:
     build: .
     container_name: rtsp-backend
+    env_file:
+      - .env
     environment:
       - PYTHONUNBUFFERED=1
     volumes:
@@ -14,6 +16,8 @@ services:
   frontend:
     image: nginx:alpine
     container_name: rtsp-frontend
+    env_file:
+      - .env
     ports:
       - "127.0.0.1::80"
     volumes:
